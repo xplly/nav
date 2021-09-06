@@ -21,7 +21,7 @@ jobs:
     - name: Push Mirror
       env:
          SOURCE_REPO: 'https://github.com/xplly/nav.git'
-         DESTINATION_REPO: '"git@gitee.com:xply/nav.git'
+         DESTINATION_REPO: 'git@gitee.com:xply/nav.git'
       run: |
           git clone --mirror "$SOURCE_REPO" && cd `basename "$SOURCE_REPO"`
           git remote set-url --push origin "$DESTINATION_REPO"
