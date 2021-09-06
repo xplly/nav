@@ -25,7 +25,7 @@ jobs:
       uses: yanglbme/gitee-pages-action@master
       with:
           # 注意替换为你的 Gitee 用户名
-          gitee-username: ${{ secrets.GITEE_USER_NAME }}
+          # gitee-username: ${{ secrets.GITEE_USER_NAME }}
           # 注意在 Settings->Secrets 配置 GITEE_PASSWORD
           gitee-password: ${{ secrets.GITEE_PASS_WORD }}
           # 注意替换为你的 Gitee 仓库
