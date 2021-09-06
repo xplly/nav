@@ -11,30 +11,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Sync to Gitee
+      uses: wearerequired/git-mirror-action@master
       env:
+          # 注意在 Settings->Secrets 配置 GITEE_TOKEN
           SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
-      run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          echo "StrictHostKeyChecking no" >> ~/.ssh/config
-    - name: Push Mirror
-      env:
-         SOURCE_REPO: 'https://github.com/xplly/nav.git'
-         DESTINATION_REPO: 'git@gitee.com:xply/nav.git'
-      run: |
-          git clone --mirror "$SOURCE_REPO" && cd `basename "$SOURCE_REPO"`
-          git remote set-url --push origin "$DESTINATION_REPO"
-          git fetch -p origin
-          git for-each-ref --format 'delete %(refname)' refs/pull | git update-ref --stdin
-          git push --mirror
+      with:
+          # 注意替换为你的 GitHub 源仓库地址
+          source-repo: "git@github.com:xplly/nav.git"
+          # 注意替换为你的 Gitee 目标仓库地址
+          destination-repo: "git@gitee.com:xply/nav.git"
  
     - name: Build Gitee Pages
       uses: yanglbme/gitee-pages-action@master
       with:
           # 注意替换为你的 Gitee 用户名
-          gitee-username: ${{ secrets.GITEE_USERNAME }}
+          gitee-username: ${{ secrets.GITEE_USER_NAME }}
           # 注意在 Settings->Secrets 配置 GITEE_PASSWORD
-          gitee-password: ${{ secrets.GITEE_PASSWORD }}
+          gitee-password: ${{ secrets.GITEE_PASS_WORD }}
           # 注意替换为你的 Gitee 仓库
-          gitee-repo: xply/nav
+          gitee-repo: ${{ secrets.GITEE_REPO_PATH }}
