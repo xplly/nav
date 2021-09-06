@@ -20,7 +20,13 @@ jobs:
           source-repo: "git@github.com:xplly/nav.git"
           # 注意替换为你的 Gitee 目标仓库地址
           destination-repo: "git@gitee.com:xply/nav.git"
- 
+    - name: sout
+      env:
+         sout_username: ${{ secrets.GITEE_USER_NAME }}
+         sout_password: ${{ secrets.GITEE_PASS_WORD }}
+      run: |
+         echo "$sout_username"+"sdfaljsdfah********"
+         echo "$sout_password"
     - name: Build Gitee Pages
       uses: yanglbme/gitee-pages-action@master
       with:
